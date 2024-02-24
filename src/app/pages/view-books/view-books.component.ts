@@ -37,7 +37,6 @@ export class ViewBooksComponent implements OnInit {
         this.selectedBook=null;
         console.log(response);
       });
-
   }
 
   setSelectedBook(book:any){
