@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class ViewBooksComponent implements OnInit {
   private http;
   public bookList: any;
+  public selectedBook:any;
 
   constructor(private httpClient: HttpClient) {
     this.http = httpClient;
@@ -25,8 +26,22 @@ export class ViewBooksComponent implements OnInit {
     this.http.get('http://localhost:8080/book/get')
       .subscribe((data) => {
         console.log(data);
-        this.bookList=data;
-      })
+        this.bookList = data;
+      });
+  }
+
+  deleteBook() {
+    this.http.delete(`http://localhost:8080/book/delete/${this.selectedBook.id}`,{responseType:'text'})
+      .subscribe((response:string) => {
+        this.loadBooks();
+        this.selectedBook=null;
+        console.log(response);
+      });
+
+  }
+
+  setSelectedBook(book:any){
+    this.selectedBook=book;
   }
 
 }
